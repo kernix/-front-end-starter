@@ -1,33 +1,44 @@
 const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: {
-    main: './sass/main.js',
-    // js: './js/main.js'
-  },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].min.css'
+    'main': "./sass/main"
   },
   module: {
-      rules: [{
-          test: /\.scss$/,
-          use: [{
-              loader: "style-loader" // creates style nodes from JS strings
-          }, {
-              loader: "css-loader" // translates CSS into CommonJS
-          },
+    rules: [
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
           {
-            loader: 'postcss-loader',
+            loader: 'css-loader',
             options: {
-              plugins: () => [autoprefixer],
-            },
+                url: false,
+                minimize: true,
+                sourceMap: true
+            }
           },
           {
-            loader: "sass-loader" // compiles Sass to CSS
-          }]
-      }]
-  }
+            loader: 'sass-loader',
+            options: {
+                sourceMap: true
+            }
+          }
+        ]
+        })
+      }
+    ]
+  },
+  plugins: [
+    new ExtractTextPlugin({
+      filename:  (getPath) => {
+        return getPath('css/[name].min.css').replace('css/js', 'css');
+      },
+      allChunks: true
+    })
+  ]
 };

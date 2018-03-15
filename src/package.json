@@ -10,20 +10,23 @@
   "author": "",
   "license": "MIT",
   "scripts": {
+    "watch": "webpack --watch",
     "dev": "webpack --mode development",
     "build": "webpack --mode production"
   },
   "dependencies": {
     "bootstrap": "^4.0.0",
     "css-loader": "^0.28.10",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "jquery": "^3.3.1",
     "node-sass": "^4.7.2",
     "popper.js": "^1.12.9",
     "postcss-loader": "^2.1.1",
     "sass-loader": "^6.0.7",
-    "style-loader": "^0.20.2",
+    "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.2",
     "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.10"
+    "webpack-cli": "^2.0.10",
+    "webpack-dev-middleware": "^3.0.1"
   }
 }
